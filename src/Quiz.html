@@ -1,0 +1,40 @@
+<html>
+    <head>
+            <script src="https://code.jquery.com/jquery-3.1.0.min.js"> </script>
+
+        <script>
+             $(document).ready(function() {
+                $.post("http://127.0.0.1:8080/home", {
+            }, function (data) {
+                for(i=0;i<data.length;i++){
+                    console.log(data[i].name)
+                    $(`.options`).append(`<tr><td>`+data[i].name+`&nbsp;&nbsp;&nbsp;</td><td><input type="radio"
+                     name="Quiz" value="`+data[i].name+`" onclick="submit()"/><br/></td></tr>`);
+                }
+            });
+             });
+             function submit(){
+                window.location = 'question.html?quizname=' + $('input[type=radio]:checked').val();
+             }
+
+
+        </script>
+        <style>
+            body{
+                background-color: #ccc;
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 22px;
+            }
+            #heading{
+                font-size: 40px;
+            }
+            .options{
+                margin: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="heading">Select the Quiz</div>
+        <div class="options"></div>
+    </body>
+</html>

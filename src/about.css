@@ -1,0 +1,56 @@
+body{
+font-family:arial,sans-serif;
+background:url(l6.jpg)no-repeat;
+background-size:cover;
+}
+#nav{
+width:100%;
+height:50px;
+
+}
+#nav_wrapper{
+height:100px;
+width:1350px;
+background:black;
+
+
+opacity:0.7;
+
+
+}
+#nav_wrapper ul li{
+list-style:none;
+display:inline;
+font-weight:bold;
+padding:20px;
+}
+#nav_wrapper a{
+color:white;
+text-decoration:none;
+padding:10px;
+}
+#nav_wrapper b{
+color:white;
+text-decoration:none;
+
+margin-top:59%;
+}
+#nav_wrapper ul li:hover{
+background:orange;
+transition:all 2.0s;
+border-radius:30px;
+}
+
+#n{
+height:300px;
+width:1200px;
+margin-top:80px;
+margin-left:auto;
+margin-right:auto;
+background:black;
+
+
+opacity:0.7;
+
+
+}

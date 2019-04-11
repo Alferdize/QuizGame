@@ -1,0 +1,137 @@
+<html>
+    <head>
+            <script src="https://code.jquery.com/jquery-3.1.0.min.js"> </script>
+
+
+        <script>
+            $(document).ready(function() {
+                var num=parseInt(prompt("Enter Number of Questions"));
+                sessionStorage.setItem("num", num);
+                var options = ['A','B','C','D']
+                for(i=1;i<=num;i++){
+                    $('#Quiz').append(`<div id="question">Question`+i+` :<input type="text" class="title" id="Question`+i+`"/><br/>
+                    A.> <input type="text" id="OptionA`+i+`"/>
+                        B.> <input type="text" id="OptionB`+i+`"/>
+                            C.> <input type="text" id="OptionC`+i+`"/>
+                                D.> <input type="text" id="OptionD`+i+`"/>
+                                <div id="aoptions`+i+`">Answer&nbsp;&nbsp;&nbsp;&nbsp;</div></div>`)
+                                    for(j=0;j<4;j++){
+                    $(`#aoptions`+i).append(options[j]+`. <input type="radio" name="Answer`+i+`" value="`+options[j]+`"/>
+                    `);
+                }
+                }
+  
+});
+function collect(){
+    var num = sessionStorage.getItem('num')
+    var Quiz = {};
+    is_empty = false;
+    quiz_name = $('#Name').val();
+    question = []
+    optionA = []
+    optionB = []
+    optionC = []
+    optionD = []
+    Answer = []
+    Quiz.name=quiz_name;
+    Quiz.questions = []
+    for(i=1;i<=num;i++){
+        var questions = {}
+        if($('#Question'+i).val() === '') {
+            is_empty = true;
+            $('#Question'+i).css("border","1px solid red");
+        }
+        else{
+            questions.question = $('#Question'+i).val();
+        }
+        if($('#OptionA'+i).val() === '') {
+            $('#OptionA'+i).css("border","1px solid red");
+            is_empty = true;
+        }
+        else{
+            questions.optionA =$('#OptionA'+i).val();
+        }
+        if($('#OptionB'+i).val() === '') {
+            $('#OptionB'+i).css("border","1px solid red");
+            is_empty = true;
+        }
+        else{
+            questions.optionB = $('#OptionB'+i).val();
+       
+        }
+        if($('#OptionC'+i).val() === '') {
+            $('#OptionC'+i).css("border","1px solid red");
+            is_empty = true;
+        }
+        else{
+        questions.optionC = $('#OptionC'+i).val();
+        }
+        if($('#OptionD'+i).val() === '') {
+            $('#OptionD'+i).css("border","1px solid red");
+            is_empty = true;
+        }else{
+        questions.optionD = $('#OptionD'+i).val();
+        }
+        if(!$('input[name="Answer'+i+'"]').is(':checked')) {
+            $('input[name="Answer'+i+'"]').css("border","1px solid red");
+            is_empty = true;
+        }else{
+        questions.Answer = $('input[name="Answer'+i+'"]:checked').val();
+        }
+        Quiz.questions.push(questions)
+    }
+    if(is_empty==false){
+        $.post("http://127.0.0.1:8080/Quiz", {
+            Quiz: Quiz
+            }, function (data) {
+              if (data == 'Done') {
+                $('input:text').val('');
+                $("input:radio").prop("checked", false);
+            alert("Successfully created Quiz.")
+            window.location = "login.html";
+              }
+            });
+    }
+    else{
+        alert("Please fill the data")
+    }
+}
+        </script>
+        
+        <style>
+            #question{
+                border-bottom-width: 2px;
+                border-bottom: 2px;
+                border-bottom-color: black;
+                padding: 20px;
+        }
+        input[type=text],#submit{
+            padding: 5px;
+            background:#000011;
+            height:7%;
+            color:#fff;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 20px;
+        }
+        .title{
+            width: 90%;
+            margin-bottom: 20px;
+        }
+        body{
+            background: #ccc;
+        }
+        </style>
+    </head>
+    <body>
+        <form id="Load">
+            Quiz Name:<input type="text" id="Name"/><br/>
+            <br/>
+            <br/>
+            <div id="Quiz">
+
+            </div>
+            <input type="button" id="submit" value="submit" onclick="collect()"/>
+        </form>
+    </body>
+
+</html>

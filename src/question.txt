@@ -1,0 +1,20 @@
+1."Which one is not an object oriented programming language?", ["Java", "C#","C++", "C"], "C"),
+
+2."Which language is used for styling web pages?", ["HTML", "JQuery", "CSS", "XML"], "CSS"),
+
+3."There are ____ main components of object oriented programming.", ["1", "6","2", "4"], "4"),
+
+4."Which language is used for web apps?", ["PHP", "Python", "Javascript", "All"], "All"),
+
+5."MVC is a ____.", ["Language", "Library", "Framework", "All"], "Framework"),
+
+6."Paging increases ______time?", ["Execution", "waiting","context switch", "All of the above"], "context switch"),
+
+7."In Unix which system call creates a new process?", ["fork", "new","creat", "exec"], "fork"),
+
+8."Which system call returns process identifier of terminated child?", ["wait", "get","exit" , "fork"], "wait"),
+
+9"Process stack does not contain?", ["return address", "PID of child process","local variable", "function parameter"], "PID of child process"),
+
+10."In UNIX the set of masked signals can be set or cleared using the____function?", ["sigpromask", "sigproc","sigmaskproc", "sigmask"], "sigpromask"),
+

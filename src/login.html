@@ -1,0 +1,66 @@
+<html>
+<link rel="stylesheet" type="text/css" href="login.css">
+<head>
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js"> </script>
+
+    <script>
+        function validate() {
+          var value = null;
+      email = $("#email").val();
+      password = $("#password").val();
+
+     $.ajax({
+  type: 'POST',
+  url: "http://127.0.0.1:8080/login",
+  data: {
+          email: email,
+          password: password
+        },
+  success: function (data) {
+         value = data;
+        },
+  async:false
+});
+alert(value)
+if (value =="False"){
+  alert("Invalid login and password.");
+  return false;
+}
+else if(value == "Admin"){
+  window.location.replace("adminQuiz.html");
+  return false;
+}
+return true;
+        }
+        </script>
+</head>
+<body>
+<div id="nav"><br>
+<div id="nav_wrapper"><br>
+<ul>
+<li><a href="welcome.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a>Things To Do</a></li>
+<li><a href="mission.html">Our Mission</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li><a href="login.html">Log In</a></li>
+<li><a href="signup.html">Register</a></li>
+</ul>
+</div>
+</div>
+
+
+
+<div class="login-box">
+<img src="l1.png" class="avatar">
+<h1>Log-In Here</h1>
+<form action="Quiz.html" onsubmit="return validate()" method="POST">
+<p>Username</p>
+<input type="text" name="username" id="email" placeholder="enter username" required>
+<p>Password</p>
+<input type="password" name="password" id="password" placeholder="enter password" required>
+<input type="submit" name="submit" value="Login"></a>
+New User?<a href="signup.html">SignUp</a>
+</form>
+</div>
+

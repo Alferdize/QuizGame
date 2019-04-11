@@ -1,0 +1,72 @@
+<html>
+
+<head>
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js"> </script>
+  <script>
+    $(document).ready(function () {
+      var queries = {};
+      $.each(document.location.search.substr(1).split('&'), function (c, q) {
+        var i = q.split('=');
+        queries[i[0].toString()] = i[1].toString();
+      });
+      queries.quizname
+      $.post("http://127.0.0.1:8080/question", {
+        quizname: queries.quizname
+      }, function (data) {
+        $(".header").append(data.name + `<p hidden>` + data.questions.length + `</p>`)
+        for (i = 0; i < data.questions.length; i++) {
+          j = i + 1
+          $(".question").append(j + ". " + data.questions[i].question + `<br/>
+                       <input type="radio" value="A" name="` + i + `"/>` + data.questions[i].optionA +
+            `<br/>
+                       <input type="radio" value="B" name="` + i + `"/>` + data.questions[i].optionB +
+            `<br/>
+                       <input type="radio" value="C" name="` + i + `"/>` + data.questions[i].optionC +
+            `<br/>
+                       <input type="radio" value="D" name="` + i + `"/>` + data.questions[i].optionD + "<hr/>")
+          sessionStorage.setItem(i, data.questions[i].Answer);
+        }
+      });
+    });
+
+    function check() {
+      var cnt = 0;
+      var n = parseInt($("p").text())
+      for (i = 0; i < n; i++) {
+        if (sessionStorage.getItem(i) == $('input[name=' + i + ']:checked').val()) {
+          cnt++;
+        }
+      }
+      $("body").html("<div class=header>Your Score is:" + cnt + "/" + n +
+        "</div><br/><br/><br/><a href='login.html'>Logout</a>")
+    }
+  </script>
+  <style>
+    body {
+      background-color: #ccc;
+    }
+
+    .header {
+      display: flex;
+      flex-direction: row;
+      font-weight: bolder;
+      font-size: 50;
+      font-family: 'Courier New', Courier, monospace;
+      color: #fff;
+      align-self: center;
+      align-items: center;
+      margin: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="quiz">
+    <div class="header"></div>
+    <div class="main">
+      <div class="question"></div><input type="submit" onclick="check()" />
+    </div>
+  </div>
+</body>
+
+</html>
